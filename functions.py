@@ -8,6 +8,8 @@ CLIENT_ID = ""
 CLIENT_SECRET_ID = ""
 ACCESS_TOKEN = ""
 ACCESS_SECRET_TOKEN = ""
+BOT_ACCESS_TOKEN = ""
+BOT_ACCESS_SECRET_TOKEN = ""
 
 def getData():
     with open (FILE_PATH, "r") as file:
@@ -49,6 +51,16 @@ def setAccessSecret(token):
     ACCESS_SECRET_TOKEN = token
     return ACCESS_SECRET_TOKEN
 
+def setBotAccess(token):
+    global BOT_ACCESS_TOKEN
+    BOT_ACCESS_TOKEN = token
+    return BOT_ACCESS_TOKEN
+
+def setBotAccessSecret(token):
+    global BOT_ACCESS_SECRET_TOKEN
+    BOT_ACCESS_SECRET_TOKEN = token
+    return BOT_ACCESS_SECRET_TOKEN
+
 def setTokens():
     temp_data = getData()
     setAPI(temp_data["ADMIN"]["API_TOKEN"])
@@ -58,6 +70,8 @@ def setTokens():
     setClientSecret(temp_data["APP1"]["CLIENT_SECRET_ID"])
     setAccess(temp_data["APP1"]["ACCESS_TOKEN"])
     setAccessSecret(temp_data["APP1"]["ACCESS_SECRET_TOKEN"])
+    setBotAccess(temp_data["APP1"]["BOT_ACCESS_TOKEN"])
+    setBotAccessSecret(temp_data["APP1"]["BOT_ACCESS_SECRET_TOKEN"])
     
 def getAPI():
     global API_TOKEN
@@ -86,3 +100,11 @@ def getAccess():
 def getAccessSecret():
     global ACCESS_SECRET_TOKEN
     return ACCESS_SECRET_TOKEN
+
+def getBotAccess():
+    global BOT_ACCESS_TOKEN
+    return BOT_ACCESS_TOKEN
+
+def getBotAccessSecret():
+    global BOT_ACCESS_SECRET_TOKEN
+    return BOT_ACCESS_SECRET_TOKEN
