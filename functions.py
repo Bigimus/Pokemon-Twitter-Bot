@@ -10,56 +10,12 @@ ACCESS_TOKEN = ""
 ACCESS_SECRET_TOKEN = ""
 BOT_ACCESS_TOKEN = ""
 BOT_ACCESS_SECRET_TOKEN = ""
+TCG_API_TOKEN = ""
 
 def getData():
     with open (FILE_PATH, "r") as file:
         temp_data = json.load(file)  
     return temp_data
-
-def setAPI(token):
-    global API_TOKEN
-    API_TOKEN = token
-    return API_TOKEN
-
-def setAPISecret(token):
-    global API_SECRET_TOKEN
-    API_SECRET_TOKEN = token
-    return API_SECRET_TOKEN
-
-def setBearer(token):
-    global BEARER_TOKEN
-    BEARER_TOKEN = token
-    return BEARER_TOKEN
-
-def setClient(ID):
-    global CLIENT_ID
-    CLIENT_ID = ID
-    return CLIENT_ID
-
-def setClientSecret(ID):
-    global CLIENT_SECRET_ID
-    CLIENT_SECRET_ID = ID
-    return CLIENT_SECRET_ID
-
-def setAccess(token):
-    global ACCESS_TOKEN
-    ACCESS_TOKEN = token
-    return ACCESS_TOKEN
-
-def setAccessSecret(token):
-    global ACCESS_SECRET_TOKEN
-    ACCESS_SECRET_TOKEN = token
-    return ACCESS_SECRET_TOKEN
-
-def setBotAccess(token):
-    global BOT_ACCESS_TOKEN
-    BOT_ACCESS_TOKEN = token
-    return BOT_ACCESS_TOKEN
-
-def setBotAccessSecret(token):
-    global BOT_ACCESS_SECRET_TOKEN
-    BOT_ACCESS_SECRET_TOKEN = token
-    return BOT_ACCESS_SECRET_TOKEN
 
 def setTokens():
     temp_data = getData()
@@ -72,6 +28,47 @@ def setTokens():
     setAccessSecret(temp_data["APP1"]["ACCESS_SECRET_TOKEN"])
     setBotAccess(temp_data["APP1"]["BOT_ACCESS_TOKEN"])
     setBotAccessSecret(temp_data["APP1"]["BOT_ACCESS_SECRET_TOKEN"])
+    setTCGAPI(temp_data["TCG"]["API_TOKEN"])
+
+def setAPI(token):
+    global API_TOKEN
+    API_TOKEN = token
+
+def setAPISecret(token):
+    global API_SECRET_TOKEN
+    API_SECRET_TOKEN = token
+
+def setBearer(token):
+    global BEARER_TOKEN
+    BEARER_TOKEN = token
+
+def setClient(ID):
+    global CLIENT_ID
+    CLIENT_ID = ID
+
+def setClientSecret(ID):
+    global CLIENT_SECRET_ID
+    CLIENT_SECRET_ID = ID
+
+def setAccess(token):
+    global ACCESS_TOKEN
+    ACCESS_TOKEN = token
+
+def setAccessSecret(token):
+    global ACCESS_SECRET_TOKEN
+    ACCESS_SECRET_TOKEN = token
+
+def setBotAccess(token):
+    global BOT_ACCESS_TOKEN
+    BOT_ACCESS_TOKEN = token
+
+def setBotAccessSecret(token):
+    global BOT_ACCESS_SECRET_TOKEN
+    BOT_ACCESS_SECRET_TOKEN = token
+
+def setTCGAPI(token):
+    global TCG_API_TOKEN
+    TCG_API_TOKEN = token
     
 def getAPI():
     global API_TOKEN
@@ -108,3 +105,7 @@ def getBotAccess():
 def getBotAccessSecret():
     global BOT_ACCESS_SECRET_TOKEN
     return BOT_ACCESS_SECRET_TOKEN
+
+def getTCGAPI():
+    global TCG_API_TOKEN
+    return TCG_API_TOKEN
