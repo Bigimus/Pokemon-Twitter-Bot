@@ -11,15 +11,22 @@ from requests_oauthlib import OAuth1
 
     This bot will pull and imagine and data of a pokemon from the Pokemon API,
     It'll then post a tweet containing the picture and the information about the Pokemon.
+    - Post a picture of a randomly picked pokemon with some general data about it. --DONE--
+    - Interactive dm bot (Play guess that pokemon, or pick a pokemon based on characteristics (maybe))
+    - Whose that pokemon random tweet, retweet with answer after certain time elapsed 
+    - Whooper Button, a button that when pressed posts a random image of whooper with a random funny quote
+    
 """
 
 POKEMON_FILE_PATH = "Pokemon.json"
 
 def getPokemon():
-    global POKEMON_FILE_PATH, API
-    temp_data = func.getData(POKEMON_FILE_PATH)
+    global POKEMON_FILE_PATH
+    temp_data = func.readJson(POKEMON_FILE_PATH)
     poke_dex = random.randint(1, 898)
     pokemon_name = temp_data[str(poke_dex)]
+    del temp_data[str(poke_dex)]
+    func.writeJson(temp_data)
     img = pokebase.SpriteResource('pokemon', poke_dex, other=True, official_artwork=True)
     img_path = img.path
     return poke_dex, pokemon_name, img_path
@@ -59,9 +66,9 @@ def formatTweet(id, name):
     GENERATION = getGeneration(ID)
     TYPE = ", ".join(temp_types).capitalize()
     formated = \
-"Name: {},\n\
-ID: {},\n\
-Type(s): {}\n\
+"Species: {},\n\
+Pokedex: {},\n\
+Type(s): {},\n\
 Generation: {}".format(NAME, ID, TYPE, GENERATION)
     return formated
     
@@ -87,5 +94,6 @@ if __name__ == "__main__":
     func.setTokens()
     API = api()
     temp_dex, temp_name, temp_path = getPokemon()
-    formatedTweet = formatTweet(temp_dex, temp_name)
-    tweet(API, formatedTweet, temp_path)
+    formated_tweet = formatTweet(temp_dex, temp_name)
+    print(formated_tweet)
+    tweet(API, formated_tweet, temp_path)

@@ -1,7 +1,7 @@
 import json
 
 TOKENS_FILE_PATH = "/Users/brianhockenjos/Desktop/Python_Projects/Global_Variables/Tokens.json"
-POKENON_FILE_PATH = "Pokemon.json"
+POKEMON_FILE_PATH = "Pokemon.json"
 API_TOKEN = ""
 API_SECRET_TOKEN = ""
 BEARER_TOKEN = ""
@@ -13,13 +13,18 @@ BOT_ACCESS_TOKEN = ""
 BOT_ACCESS_SECRET_TOKEN = ""
 TCG_API_TOKEN = ""
 
-def getData(file_path):
+def readJson(file_path):
     with open (file_path, "r") as file:
         temp_data = json.load(file)  
     return temp_data
 
+def writeJson(data):
+    global POKEMON_FILE_PATH
+    with open(POKEMON_FILE_PATH, "w") as file:
+        json.dump(data, file, indent = 4)
+
 def setTokens():
-    temp_data = getData(TOKENS_FILE_PATH)
+    temp_data = readJson(TOKENS_FILE_PATH)
     setAPI(temp_data["ADMIN"]["API_TOKEN"])
     setAPISecret(temp_data["ADMIN"]["API_SECRET_TOKEN"])
     setBearer(temp_data["ADMIN"]["BEARER_TOKEN"])
@@ -30,7 +35,7 @@ def setTokens():
     setBotAccess(temp_data["APP1"]["BOT_ACCESS_TOKEN"])
     setBotAccessSecret(temp_data["APP1"]["BOT_ACCESS_SECRET_TOKEN"])
     setTCGAPI(temp_data["TCG"]["API_TOKEN"])
-
+    
 def setAPI(token):
     global API_TOKEN
     API_TOKEN = token
@@ -111,4 +116,3 @@ def getTCGAPI():
     global TCG_API_TOKEN
     return TCG_API_TOKEN
 
-setTokens()
