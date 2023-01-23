@@ -6,4 +6,4 @@ def onButtonPress():
     file_path = func.getRandomMedia()
     API = main.api()
     main.tweet(API, random_quote, file_path)
-    #func.removeFile(file_path)
+    func.removeFile(file_path)
