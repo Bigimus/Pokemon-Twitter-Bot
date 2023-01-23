@@ -1,7 +1,6 @@
 import json
 import os
 import random
-import requests
 import BrainlyQuote as BQ
 
 TOKENS_FILE_PATH = "/Users/brianhockenjos/Desktop/Python_Projects/Global_Variables/Tokens.json"
