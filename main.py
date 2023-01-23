@@ -1,7 +1,6 @@
 import functions as func
 import button as btn
 import guesser as guess
-import interactive as dm
 import tweepy
 import random
 import pokebase
@@ -28,14 +27,10 @@ def getPokemon():
     temp_data = func.readJson("Pokemon.json")
     #--------------MAJOR ISSUE--------------
     #IF THE POKEMON WAS ALREADY DELETED AND ITS ID IS PICKED AGAIN AN ERROR WILL BE THROWN! MUST FIX
-    #MUST FIX func.getRandomMedia() AS WELL! 
-    #POSSIBLE FIX WOULD BE ALLOWING POKEMON AND QUOTES TO REPEAT.
-    #THIS COULD BE VIABLE FOR POKEMON AS THERE IS 900 OF THEM, 
-    #HOWEVER FOR QUOTES THIS MAY NOT BE VIABLE AS THERE WILL BE SO FEW QUOTES.
     poke_dex = random.randint(1, 898) 
     pokemon_name = temp_data[str(poke_dex)]
-    #del temp_data[str(poke_dex)]
-    #func.writeJson("Pokemon.json", temp_data)
+    del temp_data[str(poke_dex)]
+    func.writeJson("Pokemon.json", temp_data)
     img = pokebase.SpriteResource('pokemon', poke_dex, other=True, official_artwork=True)
     img_path = img.path
     return poke_dex, pokemon_name, img_path
