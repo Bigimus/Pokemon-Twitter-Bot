@@ -3,6 +3,10 @@ import os
 import random
 import BrainlyQuote as BQ
 
+        #===============================#
+        #      Pokemon Twitter Bot      #
+        #===============================#
+
 TOKENS_FILE_PATH = "/Users/brianhockenjos/Desktop/Python_Projects/Global_Variables/Tokens.json"
 WHOOPER_FILE_PATH = "Whooper_Images/"
 API_TOKEN = ""

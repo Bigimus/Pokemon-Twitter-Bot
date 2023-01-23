@@ -17,7 +17,7 @@ from gpiozero import Button
     - Post a picture of a randomly picked pokemon with some general data about it. --DONE--
     - Interactive dm bot (Play guess that pokemon, or pick a pokemon based on characteristics (maybe))
     - Whose that pokemon random tweet, retweet with answer after certain time elapsed 
-    - Whooper Button, a button that when pressed posts a random image of whooper with a random funny quote
+    - Whooper Button, a button that when pressed posts a random image of whooper with a random funny quote --DONE--
     
 """
 
