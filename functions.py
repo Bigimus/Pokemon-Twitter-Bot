@@ -1,7 +1,11 @@
 import json
+import os
+import random
+import requests
+import BrainlyQuote as BQ
 
 TOKENS_FILE_PATH = "/Users/brianhockenjos/Desktop/Python_Projects/Global_Variables/Tokens.json"
-POKEMON_FILE_PATH = "Pokemon.json"
+WHOOPER_FILE_PATH = "Whooper_Images/"
 API_TOKEN = ""
 API_SECRET_TOKEN = ""
 BEARER_TOKEN = ""
@@ -15,14 +19,16 @@ TCG_API_TOKEN = ""
 
 def readJson(file_path):
     with open (file_path, "r") as file:
-        temp_data = json.load(file)  
-    return temp_data
+        data = json.load(file)  
+    return data
 
-def writeJson(data):
-    global POKEMON_FILE_PATH
-    with open(POKEMON_FILE_PATH, "w") as file:
+def writeJson(file_path, data):
+    with open(file_path, "w") as file:
         json.dump(data, file, indent = 4)
-
+        
+def removeFile(file_path):
+    os.remove(file_path)
+    
 def setTokens():
     temp_data = readJson(TOKENS_FILE_PATH)
     setAPI(temp_data["ADMIN"]["API_TOKEN"])
@@ -115,4 +121,22 @@ def getBotAccessSecret():
 def getTCGAPI():
     global TCG_API_TOKEN
     return TCG_API_TOKEN
+
+def getRandomMedia():
+    random_image = random.choice(os.listdir("Whooper_Images"))
+    file_path = f"Whooper_Images/{random_image}"
+    return file_path
+    
+def getRandomQuote():
+    temp_data = readJson("Categories.json")
+    idx = random.randint(0, 124)
+    random_category = temp_data[str(idx-1)]
+    quotes_list = BQ.quotes(random_category, 125)
+    
+    if len(quotes_list) > idx:
+        idx = random.randint(0,len(quotes_list))
+        
+    random_quote = quotes_list[idx]
+    return random_quote
+
 

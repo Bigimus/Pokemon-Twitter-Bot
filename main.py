@@ -1,8 +1,12 @@
 import functions as func
+import button as btn
+import guesser as guess
+import interactive as dm
 import tweepy
 import random
 import pokebase
-from requests_oauthlib import OAuth1
+from gpiozero import Button
+
 
 """
     ||===============================||
@@ -18,15 +22,20 @@ from requests_oauthlib import OAuth1
     
 """
 
-POKEMON_FILE_PATH = "Pokemon.json"
+WHOOPER_BUTTON = Button(18)
 
 def getPokemon():
-    global POKEMON_FILE_PATH
-    temp_data = func.readJson(POKEMON_FILE_PATH)
-    poke_dex = random.randint(1, 898)
+    temp_data = func.readJson("Pokemon.json")
+    #--------------MAJOR ISSUE--------------
+    #IF THE POKEMON WAS ALREADY DELETED AND ITS ID IS PICKED AGAIN AN ERROR WILL BE THROWN! MUST FIX
+    #MUST FIX func.getRandomMedia() AS WELL! 
+    #POSSIBLE FIX WOULD BE ALLOWING POKEMON AND QUOTES TO REPEAT.
+    #THIS COULD BE VIABLE FOR POKEMON AS THERE IS 900 OF THEM, 
+    #HOWEVER FOR QUOTES THIS MAY NOT BE VIABLE AS THERE WILL BE SO FEW QUOTES.
+    poke_dex = random.randint(1, 898) 
     pokemon_name = temp_data[str(poke_dex)]
-    del temp_data[str(poke_dex)]
-    func.writeJson(temp_data)
+    #del temp_data[str(poke_dex)]
+    #func.writeJson("Pokemon.json", temp_data)
     img = pokebase.SpriteResource('pokemon', poke_dex, other=True, official_artwork=True)
     img_path = img.path
     return poke_dex, pokemon_name, img_path
@@ -56,7 +65,7 @@ def getGeneration(id):
     
     return generation
 
-def formatTweet(id, name):
+def formatRandomTweet(id, name):
     NAME = name
     ID = id
     temp_types = []
@@ -72,7 +81,6 @@ Type(s): {},\n\
 Generation: {}".format(NAME, ID, TYPE, GENERATION)
     return formated
     
-
 def api():
     temp_API_TOKEN = func.getAPI()
     temp_API_SECRET_TOKEN = func.getAPISecret()
@@ -93,7 +101,8 @@ def tweet(api: tweepy.API, message: str, image_path = None):
 if __name__ == "__main__":
     func.setTokens()
     API = api()
-    temp_dex, temp_name, temp_path = getPokemon()
-    formated_tweet = formatTweet(temp_dex, temp_name)
-    print(formated_tweet)
-    tweet(API, formated_tweet, temp_path)
+    poke_dex, pokemon_name, file_path = getPokemon()
+    formated_tweet = formatRandomTweet(poke_dex, pokemon_name)
+    tweet(API, formated_tweet, file_path)
+    guess.changeIMG(file_path, poke_dex)
+    WHOOPER_BUTTON.when_pressed = btn.onButtonPress
