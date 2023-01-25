@@ -5,6 +5,9 @@ import requests
 from bs4 import BeautifulSoup
 from math import ceil
 
+#THIS IS NOT MY WORK.
+#THIS FILE IS FROM: https://github.com/Hemil96/Brainyquote-API
+#WRITTEN BY Hemil96 OM GITHUB.
 
 def category():
     cat_list = []
@@ -53,12 +56,5 @@ def quotes(category, numberOfQuotes):
 
     return quotes_list
 
-
-if __name__ == "__main__":
-    # Demo: Get 40 quotes of the category 'Amazing'
-    print("Category '%s'" % category()[2])
-    demoResult = quotes(category()[2], 40)
-    print("Got %d quotes" % len(demoResult))
-    print("Example: %s" % demoResult[0])
 
 
